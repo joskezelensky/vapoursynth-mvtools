@@ -14,6 +14,11 @@ cflags = [
   warnings,
   '-fvisibility=hidden',
   '-DPACKAGE_VERSION="@0@"'.format(meson.project_version()),
+  '-march=znver4',
+  '-mtune=znver4',
+  '-mavx512f',
+  '-mfma',
+  '-O3',
 ]
 
 ldflags = [
@@ -161,7 +166,7 @@ if host_cpu_family.startswith('x86')
   helper_libs += static_library('avx2',
                                 libavx2_sources,
                                 dependencies: vapoursynth_dep,
-                                cpp_args: [cflags, '-mavx2', '-mtune=haswell'],
+                                cpp_args: [cflags, '-mavx2', '-march=znver4', '-mtune=znver4'],
                                 install: false)
 endif
 
